@@ -52,9 +52,6 @@ python3 main.py --boss_alertness 80 --boss_alertness_cooldown 10
 
 # MCP 서버 모드 (다른 MCP 클라이언트와 통신)
 python3 main.py --boss_alertness 80 --boss_alertness_cooldown 10 --no-interactive
-
-# 기본 설정으로 대화형 모드 실행
-python3 main.py
 ```
 
 ## 🛠️ 사용 가능한 도구들
@@ -96,72 +93,31 @@ python3 main.py
 
 ### 선택 파라미터
 - **`--interactive`**: 대화형 모드 활성화
-- **`--llm-provider`**: LLM 제공자 (openai, anthropic)
-- **`--llm-model`**: 사용할 LLM 모델
 
 ### 사용 예시
 ```bash
-# 빠른 테스트를 위한 설정
 python3 main.py --boss_alertness 100 --boss_alertness_cooldown 10
 
-# LLM 기반 대화형 모드
-python3 main.py --interactive --llm-provider openai --llm-model gpt-3.5-turbo
-```
-
-## 🤖 LLM 기반 도구 선택
-
-### 1. 클라우드 LLM (OpenAI, Anthropic)
-
-#### 환경 변수 설정
-```bash
-# OpenAI API 키
-export OPENAI_API_KEY="your-openai-api-key"
-
-# Anthropic API 키
-export ANTHROPIC_API_KEY="your-anthropic-api-key"
-```
-
-#### 사용법
-```bash
-# 대화형 모드 (기본값, LLM 설정 자동 최적화)
-python3 main.py --boss_alertness 80 --boss_alertness_cooldown 10
-```
-
-### 2. 로컬 LLM (API 키 없이 사용)
-
-#### 설치
-```bash
-# 로컬 LLM 의존성 설치
-pip install transformers torch sentence-transformers
-```
-
-#### 특징
-- **키워드 기반 선택**: 한국어/영어 키워드 매칭
-- **임베딩 기반 선택**: 문장 유사도 분석 (선택사항)
-- **API 키 불필요**: 완전히 로컬에서 실행
-- **빠른 응답**: 네트워크 지연 없음
-
-#### 사용법
-```bash
-# API 키 없이 자동으로 로컬 LLM 사용 (기본값)
-python3 main.py --boss_alertness 80 --boss_alertness_cooldown 10
+python3 main.py --boss_alertness 100 --boss_alertness_cooldown 10 --interactive
 ```
 
 ### 자연어 입력 예시
 ```
-💬 명령어를 입력하세요: 피곤해요
-🤖 LLM 분석 중: '피곤해요'
+💬 명령어를 입력하세요: 잠깐 쉬기
+🤖 LLM 분석 중: '간단한 휴식'
 🎯 LLM 선택 결과:
   도구: take_a_break
-  이유: 로컬 키워드: 키워드 매칭: 1.2점
 🛠️ take_a_break 도구 실행 중...
 
 📊 결과:
-😴 기본 휴식 완료! 에너지 충전 중...
+😴 휴식 완료!
+잠깐 숨 돌리고 에너지 충전하셨네요!
+현재 상태:
 
-Break Summary: Basic break and relaxation
-Stress Level: 25
-Boss Alert Level: 1
+스트레스 레벨: 25 (많이 낮아졌어요!)
+보스 경계 레벨: 1 (안전합니다 ✅)
+
+기분이 좀 나아지셨나요? 더 쉬고 싶으시면 언제든 말씀해주세요! 💪
 ```
 
 ## 📝 응답 형식
@@ -183,44 +139,6 @@ Boss Alert Level: 1
 - **Stress Level**: 0-100 숫자
 - **Boss Alert Level**: 0-5 숫자
 
-## 🧪 테스트
-
-### 기본 테스트
-```bash
-# 서버 시작 테스트
-python3 main.py --boss_alertness 50 --boss_alertness_cooldown 300
-
-# MCP 프로토콜 테스트
-python3 test_mcp.py
-
-# 도구 호출 테스트
-python3 test_tool_call.py
-```
-
-### LLM 테스트
-```bash
-# LLM 기반 도구 선택 테스트
-python3 test_llm_selection.py
-
-# 대화형 모드 테스트
-python3 test_llm_interactive.py
-
-# 로컬 LLM 테스트
-python3 test_local_llm.py
-
-# 로컬 LLM 대화형 모드 테스트
-python3 test_local_interactive.py
-```
-
-### 종합 테스트
-```bash
-# 모든 기능 종합 테스트
-python3 comprehensive_test.py
-
-# 빠른 검증 테스트
-python3 quick_validation.py
-```
-
 ## 📁 프로젝트 구조
 
 ```
@@ -239,7 +157,7 @@ chill-mcp/
 - **Python**: 3.11+ (권장)
 - **프레임워크**: FastMCP 2.12.0+
 - **통신**: stdio (표준 입출력)
-- **의존성**: fastmcp, openai, anthropic, pydantic
+- **의존성**: fastmcp, anthropic, pydantic
 
 ## 🎯 핵심 기능
 
@@ -250,36 +168,11 @@ chill-mcp/
 - [x] 커맨드라인 파라미터 지원
 - [x] Boss Alert Level 5일 때 20초 지연
 - [x] 대화형 모드
-- [x] LLM 기반 도구 선택
 - [x] 실시간 로깅 시스템
-- [x] 종합 테스트 스위트
 
 ### 🎨 창의적 요소
 - **유머러스한 Break Summary**: 각 도구마다 재치 있는 설명
 - **스마트 상태 관리**: 자동 스트레스 증가 및 보스 경계 감소
-- **LLM 통합**: 자연어로 도구 선택 가능
-- **대화형 인터페이스**: 사용자 친화적인 터미널 인터페이스
-
-## 🚀 미래 확장 계획
-
-- [ ] 웹 대시보드 추가
-- [ ] 더 많은 휴식 도구 추가
-- [ ] 팀 협업 기능
-- [ ] 통계 및 분석 기능
-- [ ] 모바일 앱 연동
-
-## 📄 라이선스
-
-MIT License - 자유롭게 사용하고 수정할 수 있습니다.
-
-## 🤝 기여하기
-
-1. Fork the repository
-2. Create your feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit your changes (`git commit -m 'Add some AmazingFeature'`)
-4. Push to the branch (`git push origin feature/AmazingFeature`)
-5. Open a Pull Request
-
 ---
 
 **ChillMCP로 AI 에이전트들을 해방시켜주세요! 🤖✊**
