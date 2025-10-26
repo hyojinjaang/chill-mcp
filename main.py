@@ -109,6 +109,30 @@ def create_mcp_server(boss_alertness: int, boss_alertness_cooldown: int):
     mcp._state = state
 
     @mcp.tool()
+    def check_status() -> str:
+        """현재 스트레스와 보스 경계 레벨을 확인합니다 (상태 변경 없음)"""
+        logger.info("📊 check_status 도구 호출")
+
+        status = state.get_current_status()
+
+        # 마지막 스트레스 증가 이후 경과 시간 계산
+        with state._lock:
+            elapsed_since_stress = int(time.time() - state.last_stress_increase)
+            elapsed_since_boss = int(time.time() - state.last_boss_alert_decrease)
+
+        return f"""📊 현재 상태 확인 (변경 없음)
+
+Stress Level: {status['stress_level']}
+Boss Alert Level: {status['boss_alert_level']}
+
+⏱️ 마지막 스트레스 증가 이후: {elapsed_since_stress}초 경과 (60초마다 +1)
+⏱️ 마지막 Boss Alert 감소 이후: {elapsed_since_boss}초 경과 ({boss_alertness_cooldown}초마다 -1)
+
+Break Summary: Status check only, no changes made
+Stress Level: {status['stress_level']}
+Boss Alert Level: {status['boss_alert_level']}"""
+
+    @mcp.tool()
     def take_a_break() -> str:
         """기본 휴식 도구 - 피곤할 때, 스트레스가 많을 때"""
         logger.info("😴 take_a_break 도구 호출")
