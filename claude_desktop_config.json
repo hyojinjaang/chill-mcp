@@ -7,7 +7,7 @@
         "--boss_alertness",
         "50",
         "--boss_alertness_cooldown",
-        "300"
+        "10"
       ],
       "env": {}
     }
