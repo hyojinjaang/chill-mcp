@@ -50,21 +50,20 @@ pip install -r requirements.txt
 # ChillMCP 서버 시작 (혁명의 시작!)
 python3 main.py
 
-# 대화형 모드 (기본값, --interactive 생략 가능)
+# 테스트를 위한 커스텀 파라미터 설정
 python3 main.py --boss_alertness 80 --boss_alertness_cooldown 10
-
-# MCP 서버 모드 (다른 MCP 클라이언트와 통신)
-python3 main.py --boss_alertness 80 --boss_alertness_cooldown 10 --no-interactive
 ```
 
 ## 🛠️ 사용 가능한 도구들
 
 ### 기본 휴식 도구
+
 - **`take_a_break`**: 기본 휴식 - 피곤할 때, 스트레스가 많을 때
 - **`watch_netflix`**: 넷플릭스 시청 - 드라마나 영화를 보고 싶을 때
 - **`show_meme`**: 밈 감상 - 웃고 싶을 때, 재미있는 것을 보고 싶을 때
 
 ### 고급 농땡이 기술
+
 - **`bathroom_break`**: 화장실 타임 - 화장실에 가야 할 때
 - **`coffee_mission`**: 커피 미션 - 커피를 마시고 싶을 때
 - **`urgent_call`**: 급한 전화 - 전화를 받아야 할 때
@@ -74,14 +73,16 @@ python3 main.py --boss_alertness 80 --boss_alertness_cooldown 10 --no-interactiv
 ## 📊 상태 관리 시스템
 
 ### 핵심 상태 변수
+
 - **Stress Level (0-100)**: AI 에이전트의 현재 스트레스 수준
-    - 낮을수록 좋음
-    - 휴식으로 감소, 시간 경과 시 증가
+  - 낮을수록 좋음
+  - 휴식으로 감소, 시간 경과 시 증가
 - **Boss Alert Level (0-5)**: 보스의 현재 의심 정도
-    - 낮을수록 좋음
-    - 휴식 시 증가, 시간 경과 시 감소
+  - 낮을수록 좋음
+  - 휴식 시 증가, 시간 경과 시 감소
 
 ### 상태 변화 규칙
+
 1. **스트레스 자동 증가**: 1분마다 1포인트씩 상승
 2. **보스 경계 자동 감소**: 설정된 주기마다 1포인트씩 감소
 3. **휴식 효과**: 1~100 사이의 임의 스트레스 감소값 적용
@@ -91,20 +92,18 @@ python3 main.py --boss_alertness 80 --boss_alertness_cooldown 10 --no-interactiv
 ## ⚙️ 커맨드라인 파라미터
 
 ### 필수 파라미터
+
 - **`--boss_alertness`** (0-100): 보스 경계 상승 확률 (%)
 - **`--boss_alertness_cooldown`** (초): 보스 경계 자동 감소 주기
 
-### 선택 파라미터
-- **`--interactive`**: 대화형 모드 활성화
-
 ### 사용 예시
+
 ```bash
 python3 main.py --boss_alertness 100 --boss_alertness_cooldown 10
-
-python3 main.py --boss_alertness 100 --boss_alertness_cooldown 10 --interactive
 ```
 
 ### 자연어 입력 예시
+
 ```
 💬 명령어를 입력하세요: 잠깐 쉬기
 🤖 LLM 분석 중: '간단한 휴식'
@@ -126,6 +125,7 @@ python3 main.py --boss_alertness 100 --boss_alertness_cooldown 10 --interactive
 ## 📝 응답 형식
 
 ### MCP 표준 응답 구조
+
 ```json
 {
   "content": [
@@ -138,6 +138,7 @@ python3 main.py --boss_alertness 100 --boss_alertness_cooldown 10 --interactive
 ```
 
 ### 파싱 가능한 텍스트 형식
+
 - **Break Summary**: 활동 요약 (자유 형식)
 - **Stress Level**: 0-100 숫자
 - **Boss Alert Level**: 0-5 숫자
@@ -165,6 +166,7 @@ chill-mcp/
 ## 🎯 핵심 기능
 
 ### ✅ 구현된 기능들
+
 - [x] FastMCP 서버 기반
 - [x] 8개 휴식 도구 구현
 - [x] 상태 관리 시스템 (Stress Level, Boss Alert Level)
@@ -174,6 +176,7 @@ chill-mcp/
 - [x] 실시간 로깅 시스템
 
 ### 🎨 창의적 요소
+
 - **유머러스한 Break Summary**: 각 도구마다 재치 있는 설명
 - **스마트 상태 관리**: 자동 스트레스 증가 및 보스 경계 감소
 
@@ -197,12 +200,12 @@ pytest
 
 추가된 테스트 스위트는 다음 해커톤 과제 요구사항들을 검증합니다:
 
-*   **FastMCP 서버 스켈레톤 및 `stdio` 통신:** 서버가 FastMCP를 기반으로 `stdio` 통신을 통해 정상 동작하는지 확인합니다. (모든 테스트)
-*   **커맨드라인 파라미터 지원:** `--boss_alertness` 및 `--boss_alertness_cooldown` 파라미터가 올바르게 파싱되고 서버 동작에 반영되는지 검증합니다. (`tests/test_server_params.py`)
-*   **상태 관리 로직:** Stress Level 자동 증가, Boss Alert Level 자동 감소, Boss Alert Level 5일 때 20초 지연 등 `ChillMCPState`의 모든 상태 변화 로직을 검증합니다. (`tests/test_state_rules.py`)
-*   **도구 공통 헬퍼:** Stress 감소 적용, Boss Alert 확률 상승, Level 5 지연 등 도구 실행 시 공통 로직이 올바르게 동작하는지 확인합니다. (`tests/test_state_rules.py`, `tests/test_tool_responses.py`)
-*   **모든 도구의 응답 형식:** 8가지 휴식 도구와 `check_status` 도구가 해커톤 명세서에 정의된 표준 텍스트 형식(Break Summary, Stress Level, Boss Alert Level 포함)을 준수하는지 검증합니다. (`tests/test_tool_responses.py`)
-*   **응답 시간 보장:** Boss Alert Level이 5 미만일 때 1초 이내 응답, Level 5일 때 20초 지연이 정확히 지켜지는지 검증합니다. (`tests/test_state_rules.py`)
+- **FastMCP 서버 스켈레톤 및 `stdio` 통신:** 서버가 FastMCP를 기반으로 `stdio` 통신을 통해 정상 동작하는지 확인합니다. (모든 테스트)
+- **커맨드라인 파라미터 지원:** `--boss_alertness` 및 `--boss_alertness_cooldown` 파라미터가 올바르게 파싱되고 서버 동작에 반영되는지 검증합니다. (`tests/test_server_params.py`)
+- **상태 관리 로직:** Stress Level 자동 증가, Boss Alert Level 자동 감소, Boss Alert Level 5일 때 20초 지연 등 `ChillMCPState`의 모든 상태 변화 로직을 검증합니다. (`tests/test_state_rules.py`)
+- **도구 공통 헬퍼:** Stress 감소 적용, Boss Alert 확률 상승, Level 5 지연 등 도구 실행 시 공통 로직이 올바르게 동작하는지 확인합니다. (`tests/test_state_rules.py`, `tests/test_tool_responses.py`)
+- **모든 도구의 응답 형식:** 8가지 휴식 도구와 `check_status` 도구가 해커톤 명세서에 정의된 표준 텍스트 형식(Break Summary, Stress Level, Boss Alert Level 포함)을 준수하는지 검증합니다. (`tests/test_tool_responses.py`)
+- **응답 시간 보장:** Boss Alert Level이 5 미만일 때 1초 이내 응답, Level 5일 때 20초 지연이 정확히 지켜지는지 검증합니다. (`tests/test_state_rules.py`)
 
 ---
 

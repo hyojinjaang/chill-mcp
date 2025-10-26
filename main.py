@@ -25,8 +25,6 @@ def main():
                         help="Boss alertness increase probability (0-100, percentage)")
     parser.add_argument("--boss_alertness_cooldown", type=int, default=300,
                         help="Boss Alert Level auto-decrease interval (seconds)")
-    parser.add_argument('--interactive', action=argparse.BooleanOptionalAction, default=True,
-                        help="Enable interactive mode")
 
     args = parser.parse_args()
 
@@ -47,11 +45,7 @@ def main():
 
     # MCP 서버 생성 및 실행
     mcp = create_mcp_server(args.boss_alertness, args.boss_alertness_cooldown)
-
-    if args.interactive:
-        mcp.run()
-    else:
-        asyncio.run(mcp.run_stdio_async())
+    asyncio.run(mcp.run_stdio_async())
 
 if __name__ == "__main__":
     main()
