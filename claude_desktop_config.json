@@ -1,0 +1,15 @@
+{
+  "mcpServers": {
+    "chill-mcp": {
+      "command": "/Users/hjjang/Documents/chill-mcp/venv/bin/python3",
+      "args": [
+        "/Users/hjjang/Documents/chill-mcp/main.py",
+        "--boss_alertness",
+        "50",
+        "--boss_alertness_cooldown",
+        "300"
+      ],
+      "env": {}
+    }
+  }
+}
