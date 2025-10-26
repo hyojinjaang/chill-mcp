@@ -47,6 +47,9 @@ pip install -r requirements.txt
 ### 2. 서버 실행
 
 ```bash
+# ChillMCP 서버 시작 (혁명의 시작!)
+python3 main.py
+
 # 대화형 모드 (기본값, --interactive 생략 가능)
 python3 main.py --boss_alertness 80 --boss_alertness_cooldown 10
 
