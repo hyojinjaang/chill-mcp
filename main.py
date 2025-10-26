@@ -184,7 +184,7 @@ Boss Alert Level: {status['boss_alert_level']}"""
 
     @mcp.tool()
     def bathroom_break() -> str:
-        """화장실 타임 도구 - 화장실에 가야 할 때"""
+        """화장실을 핑계로 장시간 자리를 비우며 휴식을 취합니다. (스마트폰은 필수!)"""
         logger.info("🛁 bathroom_break 도구 호출")
 
         if state.boss_alert_level == 5:
@@ -200,7 +200,7 @@ Boss Alert Level: {status['boss_alert_level']}"""
 
     @mcp.tool()
     def coffee_mission() -> str:
-        """커피 미션 도구 - 커피를 마시고 싶을 때"""
+        """커피를 가져온다는 명분으로 사무실을 어슬렁거리거나 동료와 담소를 나눕니다."""
         logger.info("☕️ coffee_mission 도구 호출")
 
         if state.boss_alert_level == 5:
@@ -216,7 +216,7 @@ Boss Alert Level: {status['boss_alert_level']}"""
 
     @mcp.tool()
     def urgent_call() -> str:
-        """급한 전화 도구 - 전화를 받아야 할 때"""
+        """급한 전화를 받는 척 연기하며 자리를 피해 외부에서 휴식을 취합니다."""
         logger.info("📞 urgent_call 도구 호출")
 
         if state.boss_alert_level == 5:
@@ -232,7 +232,7 @@ Boss Alert Level: {status['boss_alert_level']}"""
 
     @mcp.tool()
     def deep_thinking() -> str:
-        """깊은 사색 도구 - 생각하고 싶을 때"""
+        """업무에 깊이 몰두한 척하며 실제로는 멍하니 있거나 다른 생각을 합니다."""
         logger.info("🤔 deep_thinking 도구 호출")
 
         if state.boss_alert_level == 5:
@@ -248,7 +248,7 @@ Boss Alert Level: {status['boss_alert_level']}"""
 
     @mcp.tool()
     def email_organizing() -> str:
-        """이메일 정리 도구 - 이메일을 확인해야 할 때"""
+        """중요한 이메일을 정리하는 것처럼 보이지만, 실제로는 웹 서핑이나 쇼핑을 합니다."""
         logger.info("📧 email_organizing 도구 호출")
 
         if state.boss_alert_level == 5:
